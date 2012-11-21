@@ -1,74 +1,260 @@
 <!DOCTYPE html>
 <html>
 
-  <head>
-    <meta charset='utf-8' />
-    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="Neo4j Intro : " />
+<head>
+    <meta charset='utf-8'/>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1"/>
+    <meta name="description" content="Neo4j Intro : "/>
 
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
 
     <title>Neo4j Intro</title>
-  </head>
+</head>
 
-  <body>
+<body>
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/dmontag/neo4j-intro">View on GitHub</a>
+<!-- HEADER -->
+<div id="header_wrap" class="outer">
+    <header class="inner">
+        <!--<a id="forkme_banner" href="https://github.com/dmontag/neo4j-intro">View on GitHub</a>-->
 
-          <h1 id="project_title">Neo4j Intro</h1>
-          <h2 id="project_tagline"></h2>
+        <h1 id="project_title">Neo4j Intro</h1>
 
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/dmontag/neo4j-intro/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/dmontag/neo4j-intro/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
-    </div>
+        <h2 id="project_tagline"></h2>
 
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-        <h3>Welcome to GitHub Pages.</h3>
+        <!--<section id="downloads">-->
+        <!--<a class="zip_download_link" href="https://github.com/dmontag/neo4j-intro/zipball/master">Download this project as a .zip file</a>-->
+        <!--<a class="tar_download_link" href="https://github.com/dmontag/neo4j-intro/tarball/master">Download this project as a tar.gz file</a>-->
+        <!--</section>-->
+    </header>
+</div>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+<!-- MAIN CONTENT -->
+<div id="main_content_wrap" class="outer">
+    <section id="main_content" class="inner">
+        <h3>Introduction</h3>
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
+        <p>
+            Neo4j is a graph database. Data is stored as nodes and relationships. Queries are usually done with the
+            Cypher query language. This serves as a basic introduction to the Neo4j REST API.
+        </p>
+
+
+        <h3>Installing Neo4j</h3>
+
+        <p>
+            Start out by <a href="http://neo4j.org">downloading</a> and unpacking Neo4j. Then simply start it up:
+        </p>
+
+<pre><code>$ bin/neo4j start
 </code></pre>
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+        <p>
+            Neo4j will now listen for HTTP requests on port 7474. You can browse to <a href="http://localhost:7474">http://localhost:7474</a>
+            to view it.
+        </p>
 
-<h3>Designer Templates</h3>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+        <h3>Basic concepts</h3>
 
-<h3>Rather Drive Stick?</h3>
+        <p>
+            Before getting started with the REST API, one needs to understand three core Neo4j concepts.
+        </p>
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+        <h4>Indexing</h4>
 
-<h3>Authors and Contributors</h3>
+        <p>
+            Graph queries can ask arbitrarily complex questions about the graph. The trait that all graph
+            queries have in common is that they're centered around one or more starting points – nodes in
+            the graph. In order to find these starting points, Neo4j makes use of indexing. It can simply
+            be thought of as a search engine for nodes.
+        </p>
 
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+        <p>
+            It is best practice to have multiple indexes, one per kind of node in the graph. In a social network
+            use case, user nodes would have an index, photo nodes would have an index, and so on. An index is
+            only required if one needs to be able to find the node as a starting point for a query.
+        </p>
 
-<h3>Support or Contact</h3>
+        <p>
+            Lastly it is important to understand that when adding a node to the index, it is always added
+            for a specific set of properties. For example, a node may be indexed in the users index for its
+            id and name properties. It can then later be looked up by its id or its name, or a combination of
+            those.
+        </p>
 
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
-      </section>
-    </div>
+        <h4>Cypher</h4>
 
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">Neo4j Intro maintained by <a href="https://github.com/dmontag">dmontag</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
-      </footer>
-    </div>
+        <p>
+            The Neo4j query language is called Cypher, and it is a graph pattern matching language. It enables
+            users to find any pattern in the graph, from simple friend-of-a-friend ones, to complex traversals
+            walking many hops deep in the graph. Cypher also allows users to modify data, creating new nodes
+            and relationships, and setting properties.
+        </p>
 
+        <p>
+            Currently Cypher comes with a big caveat, which is that it does not support updating indexes.
+            This means that Cypher effectively cannot index created nodes.
+        </p>
+
+        <h4>Transactions</h4>
+
+        <p>
+            Neo4j is fully transactional, and every operation that updates the database has to be in a
+            transaction. With the REST API, each operation runs in an individual transaction. In order to
+            have a transaction span multiple operations, the REST batch API can be used to bundle several
+            requests together into one.
+        </p>
+
+
+        <h3>Using the REST API with $ curl</h3>
+
+        <h4>Creating nodes</h4>
+
+        <p>
+            When creating nodes, we usually want to have them indexed for at least one property. In this
+            example we will create unique users with "get or create" semantics. Before doing anything, we
+            need to create the <code>users</code> index:
+        </p>
+
+<pre><code>$ curl -v http://localhost:7474/db/data/index/node/ \
+    -H Accept:application/json \
+    -H Content-Type:application/json \
+    -d '{"name":"users"}'
+</code></pre>
+
+        <p>
+            Once the index has been created, we can ask for a unique node representing a user:
+        </p>
+
+<pre><code>$ curl -v http://localhost:7474/db/data/index/node/users?unique \
+    -H Accept:application/json \
+    -H Content-Type:application/json \
+    -d '{"key":"id", "value":1000, "properties":{"id":1000, "name":"David"}}'
+</code></pre>
+
+        <p>
+            This request specifies that we want to get or create a node uniquely based on the
+            <code>name</code> property having the value <code>1000</code>. We can then specify
+            the properties we want to store on the node if it is created.
+        </p>
+        
+        <h4>Creating relationships</h4>
+        
+        <p>
+            Relationships are usually not indexed. Thus relationship creation can be done with Cypher.
+            Let's create another user and connect our two users together:
+        </p>
+
+<pre><code>$ curl -v http://localhost:7474/db/data/index/node/users?unique \
+    -H Accept:application/json \
+    -H Content-Type:application/json \
+    -d '{"key":"id", "value":1001, "properties":{"id":1001, "name":"Malcolm"}}'
+
+$ curl -v http://localhost:7474/db/data/cypher \
+    -H Accept:application/json \
+    -H Content-Type:application/json \
+    -d '{"query":"START u1=node:users(id={u1}), u2=node:users(id={u2}) CREATE UNIQUE u1-[:KNOWS]->u2", "params":{"u1":1000, "u2":1001}}'
+</code></pre>
+        
+        <h4>Creating nodes and connecting it atomically</h4>
+        
+        <p>
+            In the examples so far, each individual request has run in its own transaction and committed
+            separately. In many cases, we may want to atomically both create the node as well as relate it
+            to something. We can do this by utilizing the REST batch API, which will commit all or nothing:
+        </p>
+
+<pre><code>$ curl -v http://localhost:7474/db/data/batch \
+    -H Accept:application/json \
+    -H Content-Type:application/json \
+    -d '[{"method":"POST", "to":"/index/node/users?unique",
+          "body":{"key":"id", "value":1002, "properties":{"id":1002, "name":"Jonathan"}}},
+         {"method":"POST", "to":"/cypher",
+          "body":{"query":"START u1=node:users(id={u1}), u2=node:users(id={u2}) CREATE UNIQUE u1-[:KNOWS]->u2",
+                  "params":{"u1":1002, "u2":1000}}}]'
+</code></pre>
+
+        <h3>Queries</h3>
+
+        <p>
+            Once data is inserted into the database, it can be queries using Cypher. In order to work on a more
+            interesting dataset, run the following query to create some more data in the database:
+        </p>
+
+<pre><code>$ curl -v http://localhost:7474/db/data/batch \
+    -H Accept:application/json \
+    -H Content-Type:application/json \
+    -d '[{"method":"POST", "to":"/index/node/users?unique", "body":{"key":"id", "value":1003, "properties":{"id":1003, "name":"Clara"}}}, {"method":"POST", "to":"/cypher", "body":{"query":"START u1=node:users(id={u1}), u2=node:users(id={u2}) CREATE UNIQUE u1-[:KNOWS]->u2", "params":{"u1":1003, "u2":1001}}},
+         {"method":"POST", "to":"/index/node/users?unique", "body":{"key":"id", "value":1004, "properties":{"id":1004, "name":"Jenna"}}}, {"method":"POST", "to":"/cypher", "body":{"query":"START u1=node:users(id={u1}), u2=node:users(id={u2}) CREATE UNIQUE u1-[:KNOWS]->u2", "params":{"u1":1004, "u2":1003}}},
+         {"method":"POST", "to":"/cypher", "body":{"query":"START u1=node:users(id={u1}), u2=node:users(id={u2}) CREATE UNIQUE u1-[:KNOWS]->u2", "params":{"u1":1001, "u2":1002}}}]'
+</code></pre>
+
+        <p>
+            Find all friends for a user:
+        </p>
+
+<pre><code>$ curl -v http://localhost:7474/db/data/cypher \
+    -H Accept:application/json \
+    -H Content-Type:application/json \
+    -d '{"query":"START user=node:users(id={u}) MATCH user-[:KNOWS]-friend RETURN friend.id, friend.name",
+         "params":{"u":1000}}'
+</code></pre>
+
+        <p>
+            Find all friends of friends for a user:
+        </p>
+
+<pre><code>$ curl -v http://localhost:7474/db/data/cypher \
+    -H Accept:application/json \
+    -H Content-Type:application/json \
+    -d '{"query":"START user=node:users(id={u}) MATCH user-[:KNOWS]-()-[:KNOWS]-foaf WHERE not(user-[:KNOWS]-foaf) RETURN foaf.id, foaf.name",
+         "params":{"u":1000}}'
+</code></pre>
+
+        <p>
+            Find the shortest path between two people:
+        </p>
+
+<pre><code>$ curl -v http://localhost:7474/db/data/cypher \
+    -H Accept:application/json \
+    -H Content-Type:application/json \
+    -d '{"query":"START u1=node:users(id={u1}), u2=node:users(id={u2}) MATCH path=shortestPath(u1-[:KNOWS*..4]-u2) RETURN path",
+         "params":{"u1":1000, "u2":1004}}'
+</code></pre>
+
+        <p>
+            Find the the common friends of two people:
+        </p>
+
+<pre><code>$ curl -v http://localhost:7474/db/data/cypher \
+    -H Accept:application/json \
+    -H Content-Type:application/json \
+    -d '{"query":"START u1=node:users(id={u1}), u2=node:users(id={u2}) MATCH u1-[:KNOWS]-friend-[:KNOWS]-u2 RETURN friend.id, friend.name",
+         "params":{"u1":1000, "u2":1003}}'
+</code></pre>
+
+    <h3>Next steps</h3>
     
+    <p>
+        This basic intro has hopefully helped you understand how to interact with Neo4j on a basic level.
+        Language bindings provide abstraction layers on top of this. See the Neo4j documentation for a 
+        <a href="http://docs.neo4j.org/chunked/stable/tutorials-rest.html">list of community-supported
+        language bindings</a>.
+    </p>
 
-  </body>
+    </section>
+</div>
+
+<!-- FOOTER  -->
+<div id="footer_wrap" class="outer">
+    <footer class="inner">
+        <p class="copyright">Neo4j Intro maintained by <a href="https://github.com/dmontag">dmontag</a></p>
+
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+    </footer>
+</div>
+
+
+</body>
 </html>
