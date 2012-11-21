@@ -22,10 +22,10 @@
 
         <h2 id="project_tagline"></h2>
 
-        <!--<section id="downloads">-->
+        <section id="downloads">
         <!--<a class="zip_download_link" href="https://github.com/dmontag/neo4j-intro/zipball/master">Download this project as a .zip file</a>-->
-        <!--<a class="tar_download_link" href="https://github.com/dmontag/neo4j-intro/tarball/master">Download this project as a tar.gz file</a>-->
-        <!--</section>-->
+        <a class="tar_download_link" href="http://neo4j.org/download-thanks?edition=community&release=1.8">Download Neo4j</a>
+        </section>
     </header>
 </div>
 
@@ -43,7 +43,7 @@
         <h3>Installing Neo4j</h3>
 
         <p>
-            Start out by <a href="http://neo4j.org">downloading</a> and unpacking Neo4j. Then simply start it up:
+            Start out by <a href="http://neo4j.org/download-thanks?edition=community&release=1.8">downloading</a> and unpacking Neo4j. Then simply start it up:
         </p>
 
 <pre><code>$ bin/neo4j start
@@ -51,7 +51,8 @@
 
         <p>
             Neo4j will now listen for HTTP requests on port 7474. You can browse to <a href="http://localhost:7474">http://localhost:7474</a>
-            to view it.
+            to view the webadmin UI. Here you can run queries and visually inspect the graph. This introduction
+            will use the popular command-line <code>curl</code> tool to execute queries.
         </p>
 
 
