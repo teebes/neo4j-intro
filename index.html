@@ -78,10 +78,17 @@
         </p>
 
         <p>
-            Lastly it is important to understand that when adding a node to the index, it is always added
+            Important to understand is that when adding a node to the index, it is always added
             for a specific set of properties. For example, a node may be indexed in the users index for its
             id and name properties. It can then later be looked up by its id or its name, or a combination of
             those.
+        </p>
+        
+        <p>
+            Neo4j also supports automatic indexing. The database is simply configured with property keys it
+            should look for on nodes, and will index any created node with such a key. This kind of index
+            does however not support uniqueness constraints. For this introduction, we will stick to
+            explicit indexing with uniqueness constraints.
         </p>
 
         <h4>Cypher</h4>
@@ -94,8 +101,9 @@
         </p>
 
         <p>
-            Currently Cypher comes with a big caveat, which is that it does not support updating indexes.
-            This means that Cypher effectively cannot index created nodes.
+            Currently Cypher comes with a caveat, which is that it does not support updating of indexes.
+            Cypher can still make use of automatic indexing, which is taken care of by the database, but for
+            uniqueness constraints, the REST indexing API must be used.
         </p>
 
         <h4>Transactions</h4>
