@@ -166,7 +166,7 @@ $ curl -v http://localhost:7474/db/data/cypher \
     -d '{"query":"START u1=node:users(id={u1}), u2=node:users(id={u2}) CREATE UNIQUE u1-[:KNOWS]->u2", "params":{"u1":1000, "u2":1001}}'
 </code></pre>
         
-        <h4>Creating nodes and connecting it atomically</h4>
+        <h4>Creating a node and connecting it atomically</h4>
         
         <p>
             In the examples so far, each individual request has run in its own transaction and committed
